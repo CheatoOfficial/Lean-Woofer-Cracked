@@ -1,7 +1,5 @@
 # Lean Woofer (HWID Spoofer) Cracked
 
-Buy https://chea.to/product/cheato-spoofer/ instead!
-
 Staff of Lean Woofer turned on old owner, Hxzee gave ownership of server to Lucifer.#0777 and OverDrive#9114 also own it now.
 
 OverDrive has released a crack, however I did some reversal myself, dumped all KeyAuth files under Lean Woofer application via my KeyAuth Loader Emulator.
