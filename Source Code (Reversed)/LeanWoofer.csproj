@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <AssemblyName>LeanWoofer</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <OutputType>WinExe</OutputType>
+    <UseWindowsForms>True</UseWindowsForms>
+    <TargetFramework>net472</TargetFramework>
+    <Prefer32Bit>True</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>Preview</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <RootNamespace />
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="costura.circularprogressbar.dll.compressed" />
+    <None Remove="costura.costura.dll.compressed" />
+    <None Remove="costura.costura.pdb.compressed" />
+    <None Remove="costura.metroframework.design.dll.compressed" />
+    <None Remove="costura.metroframework.dll.compressed" />
+    <None Remove="costura.metroframework.fonts.dll.compressed" />
+    <None Remove="costura.newtonsoft.json.dll.compressed" />
+    <None Remove="costura.proxyclient.dll.compressed" />
+    <None Remove="costura.siticone.ui.dll.compressed" />
+    <None Remove="costura.system.diagnostics.diagnosticsource.dll.compressed" />
+    <None Remove="costura.winformanimation.dll.compressed" />
+    <None Remove="costura.metadata" />
+    <None Remove="QbRZ" />
+    <EmbeddedResource Include="costura.circularprogressbar.dll.compressed" />
+    <EmbeddedResource Include="costura.costura.dll.compressed" />
+    <EmbeddedResource Include="costura.costura.pdb.compressed" />
+    <EmbeddedResource Include="costura.metroframework.design.dll.compressed" />
+    <EmbeddedResource Include="costura.metroframework.dll.compressed" />
+    <EmbeddedResource Include="costura.metroframework.fonts.dll.compressed" />
+    <EmbeddedResource Include="costura.newtonsoft.json.dll.compressed" />
+    <EmbeddedResource Include="costura.proxyclient.dll.compressed" />
+    <EmbeddedResource Include="costura.siticone.ui.dll.compressed" />
+    <EmbeddedResource Include="costura.system.diagnostics.diagnosticsource.dll.compressed" />
+    <EmbeddedResource Include="costura.winformanimation.dll.compressed" />
+    <EmbeddedResource Include="costura.metadata" />
+    <EmbeddedResource Include="QbRZ" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Siticone.UI">
+      <HintPath>..\Lean Client\Dumps\Siticone.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Core" />
+    <Reference Include="Newtonsoft.Json" />
+  </ItemGroup>
+</Project>

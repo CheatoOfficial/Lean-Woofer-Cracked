@@ -1,0 +1,52 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Cheato\\Desktop\\lean 3.0 src\\LeanWoofer.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Cheato\\Desktop\\lean 3.0 src\\LeanWoofer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Cheato\\Desktop\\lean 3.0 src\\LeanWoofer.csproj",
+        "projectName": "LeanWoofer",
+        "projectPath": "C:\\Users\\Cheato\\Desktop\\lean 3.0 src\\LeanWoofer.csproj",
+        "packagesPath": "C:\\Users\\Cheato\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Cheato\\Desktop\\lean 3.0 src\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Cheato\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "targetAlias": "net472",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net472": {
+          "targetAlias": "net472",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win7-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

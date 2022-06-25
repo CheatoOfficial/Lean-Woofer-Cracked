@@ -1,0 +1,164 @@
+@echo off
+rem DOCS
+rem advfirewall - technet.microsoft.com/en-us/library/cc771046(v=ws.10).aspx
+rem arp - technet.microsoft.com/en-us/library/cc940107.aspx
+rem ipconfig - technet.microsoft.com/en-us/library/bb490921.aspx
+rem nbtstat - technet.microsoft.com/en-us/library/bb490938.aspx
+rem netsh - technet.microsoft.com/en-us/library/cc770948(v=ws.10).aspx
+rem route - technet.microsoft.com/en-us/library/bb490991.aspx
+
+rem Set all needed services back to start/auto
+reg add "HKLM\System\CurrentControlSet\Services\BFE" /v "Start" /t REG_DWORD /d "2" /f
+reg add "HKLM\System\CurrentControlSet\Services\Dnscache" /v "Start" /t REG_DWORD /d "2" /f
+reg add "HKLM\System\CurrentControlSet\Services\MpsSvc" /v "Start" /t REG_DWORD /d "2" /f
+reg add "HKLM\System\CurrentControlSet\Services\WinHttpAutoProxySvc" /v "Start" /t REG_DWORD /d "3" /f
+
+rem Default services
+sc config Dhcp start= auto
+sc config DPS start= auto
+sc config lmhosts start= auto
+sc config NlaSvc start= auto
+sc config nsi start= auto
+sc config RmSvc start= auto
+sc config Wcmsvc start= auto
+sc config WdiServiceHost start= demand
+sc config Winmgmt start= auto
+
+sc config NcbService start= demand
+sc config Netman start= demand
+sc config netprofm start= demand
+sc config WlanSvc start= auto
+sc config WwanSvc start= demand
+
+net start Dhcp
+net start DPS
+net start NlaSvc
+net start nsi
+net start RmSvc
+net start Wcmsvc
+
+rem Disable netadapter with index number 0-5 (ipconfig /release)
+wmic path win32_networkadapter where index=0 call disable
+wmic path win32_networkadapter where index=1 call disable
+wmic path win32_networkadapter where index=2 call disable
+wmic path win32_networkadapter where index=3 call disable
+wmic path win32_networkadapter where index=4 call disable
+wmic path win32_networkadapter where index=5 call disable
+
+rem Timeout to let the network adapter recover
+timeout 6
+
+rem Enable adapter with index number 0-5 (ipconfig /renew)
+wmic path win32_networkadapter where index=0 call enable
+wmic path win32_networkadapter where index=1 call enable
+wmic path win32_networkadapter where index=2 call enable
+wmic path win32_networkadapter where index=3 call enable
+wmic path win32_networkadapter where index=4 call enable
+wmic path win32_networkadapter where index=5 call enable
+
+rem Reset winsock, adapters and firewall (ignore the errors)
+arp -d *
+route -f
+nbtstat -R
+nbtstat -RR
+netsh advfirewall reset
+
+netcfg -d
+netsh winsock reset
+netsh int 6to4 reset all
+netsh int httpstunnel reset all
+netsh int ip reset
+netsh int isatap reset all
+netsh int portproxy reset all
+netsh int tcp reset all
+netsh int teredo reset all
+ipconfig /release
+ipconfig /renew
+ipconfig /flushdns
+CD /D "%~dp0"
+set nscexe="%CD%\nsudoc.exe"
+if NOT exist %nscexe% echo nsudoc.exe was not found. & echo. & echo Press any key to exit . . . & pause >nul & exit
+reg add "hklm\system\controlset001\control\session manager\memory management" /v "secondleveldatacache" /t reg_dword /d "%sum1%" /f
+reg add "hklm\system\controlset001\control\session manager\memory management" /v "thirdleveldatacache" /t reg_dword /d "%sum2%" /f
+reg add "hklm\system\controlset001\control\session manager\memory management" /v "pagingfiles" /t reg_multi_sz /d "c:\pagefile.sys 0 0" /f
+reg add "hklm\system\controlset001\control\filesystem" /v "contigfileallocsize" /t reg_dword /d "1536" /f
+reg add "hklm\system\controlset001\control\filesystem" /v "disabledeletenotification" /t reg_dword /d "0" /f
+reg add "hklm\system\controlset001\control\filesystem" /v "dontverifyrandomdrivers" /t reg_dword /d "1" /f
+reg add "hklm\system\controlset001\control\filesystem" /v "filenamecache" /t reg_dword /d "1024" /f
+reg add "hklm\system\controlset001\control\filesystem" /v "longpathsenabled" /t reg_dword /d "0" /f
+reg add "hklm\system\controlset001\control\filesystem" /v "ntfsallowextendedcharacter8dot3rename" /t reg_dword /d "0" /f
+reg add "hklm\system\controlset001\control\filesystem" /v "ntfsbugcheckoncorrupt" /t reg_dword /d "0" /f
+reg add "hklm\system\controlset001\control\filesystem" /v "ntfsdisable8dot3namecreation" /t reg_dword /d "1" /f
+reg add "hklm\system\controlset001\control\filesystem" /v "ntfsdisablecompression" /t reg_dword /d "0" /f
+reg add "hklm\system\controlset001\control\filesystem" /v "ntfsdisableencryption" /t reg_dword /d "1" /f
+reg add "hklm\system\controlset001\control\filesystem" /v "ntfsencryptpagingfile" /t reg_dword /d "0" /f
+reg add "hklm\system\controlset001\control\filesystem" /v "ntfsmemoryusage" /t reg_dword /d "0" /f
+reg add "hklm\system\controlset001\control\filesystem" /v "ntfsmftzonereservation" /t reg_dword /d "4" /f
+reg add "hklm\system\controlset001\control\filesystem" /v "pathcache" /t reg_dword /d "128" /f
+reg add "hklm\system\controlset001\control\filesystem" /v "refsdisablelastaccessupdate" /t reg_dword /d "1" /f
+reg add "hklm\system\controlset001\control\filesystem" /v "udfssoftwaredefectmanagement" /t reg_dword /d "0" /f
+reg add "hklm\system\controlset001\control\filesystem" /v "win31filesystem" /t reg_dword /d "0" /f
+reg add "hklm\system\currentcontrolset\control\filesystem" /v "contigfileallocsize" /t reg_dword /d "1536" /f
+reg add "hklm\system\currentcontrolset\control\filesystem" /v "disabledeletenotification" /t reg_dword /d "0" /f
+reg add "hklm\system\currentcontrolset\control\filesystem" /v "dontverifyrandomdrivers" /t reg_dword /d "1" /f
+reg add "hklm\system\currentcontrolset\control\filesystem" /v "filenamecache" /t reg_dword /d "1024" /f
+reg add "hklm\system\currentcontrolset\control\filesystem" /v "longpathsenabled" /t reg_dword /d "0" /f
+reg add "hklm\system\currentcontrolset\control\filesystem" /v "ntfsallowextendedcharacter8dot3rename" /t reg_dword /d "0" /f
+reg add "hklm\system\currentcontrolset\control\filesystem" /v "ntfsbugcheckoncorrupt" /t reg_dword /d "0" /f
+reg add "hklm\system\currentcontrolset\control\filesystem" /v "ntfsdisable8dot3namecreation" /t reg_dword /d "1" /f
+reg add "hklm\system\currentcontrolset\control\filesystem" /v "ntfsdisablecompression" /t reg_dword /d "0" /f
+reg add "hklm\system\currentcontrolset\control\filesystem" /v "ntfsdisableencryption" /t reg_dword /d "1" /f
+reg add "hklm\system\currentcontrolset\control\filesystem" /v "ntfsencryptpagingfile" /t reg_dword /d "0" /f
+reg add "hklm\system\currentcontrolset\control\filesystem" /v "ntfsmemoryusage" /t reg_dword /d "0" /f
+reg add "hklm\system\currentcontrolset\control\filesystem" /v "ntfsmftzonereservation" /t reg_dword /d "3" /f
+reg add "hklm\system\currentcontrolset\control\filesystem" /v "pathcache" /t reg_dword /d "128" /f
+reg add "hklm\system\currentcontrolset\control\filesystem" /v "refsdisablelastaccessupdate" /t reg_dword /d "1" /f
+reg add "hklm\system\currentcontrolset\control\filesystem" /v "udfssoftwaredefectmanagement" /t reg_dword /d "0" /f
+reg add "hklm\system\currentcontrolset\control\filesystem" /v "win31filesystem" /t reg_dword /d "0" /f
+reg add "hklm\system\currentcontrolset\control\session manager\executive" /v "additionalcriticalworkerthreads" /t reg_dword /d "00000016" /f
+reg add "hklm\system\currentcontrolset\control\session manager\executive" /v "additionaldelayedworkerthreads" /t reg_dword /d "00000016" /f
+reg add "hklm\system\currentcontrolset\control\session manager\i/o system" /v "countoperations" /t reg_dword /d "00000000" /f
+reg add "hklm\system\currentcontrolset\control\session manager\memory management" /v "clearpagefileatshutdown" /t reg_dword /d "0" /f
+reg add "hklm\system\currentcontrolset\control\session manager\memory management" /v "featuresettingsoverride" reg_dword /d "00000003" /f
+reg add "hklm\system\currentcontrolset\control\session manager\memory management" /v "featuresettingsoverridemask" reg_dword /d "00000003" /f
+reg add "hklm\system\currentcontrolset\control\session manager\memory management" /v "iopagelocklimit" /t reg_dword /d "08000000" /f
+reg add "hklm\system\currentcontrolset\control\session manager\memory management" /v "largesystemcache" /t reg_dword /d "00000000" /f
+reg add "hklm\system\currentcontrolset\control\session manager\memory management" /v "systempages" /t reg_dword /d "4294967295" /f
+reg add "hklm\system\currentcontrolset\control\session manager\memory management" /v "disablepagingexecutive" /t reg_dword /d "1" /f
+reg add "hklm\system\currentcontrolset\control\session manager\memory management" /v "iopagelocklimit" /t reg_dword /d "16710656" /f
+reg add "hklm\system\currentcontrolset\control\session manager\memory management" /v "largesystemcache" /t reg_dword /d "00000000" /f
+reg add "hklm\system\currentcontrolset\control\session manager\memory management\prefetchparameters" /v "enableboottrace" /t reg_dword /d "0" /f
+reg add "hklm\system\currentcontrolset\control\session manager\memory management\prefetchparameters" /v "enableprefetcher" /t reg_dword /d "0" /f
+reg add "hklm\system\currentcontrolset\control\session manager\memory management\prefetchparameters" /v "enablesuperfetch" /t reg_dword /d "0" /f
+for /f "tokens=2 delims==" %%a in ('wmic os get TotalVisibleMemorySize /format:value') do set mem=%%a
+set /a ram=%mem% + 1024000
+reg add "hklm\system\currentcontrolset\control" /v "svchostsplitthresholdinkb" /t reg_dword /d "%ram%" /f
+goto checkadmin
+
+
+
+
+:checkadmin
+echo Elevating to Administrator permissions . . . 
+echo.
+NET FILE>nul 2>&1||goto elevate
+goto elevated
+
+:elevate
+echo.CreateObject^("Shell.Application"^).ShellExecute%0,,,"RunAs",1 >"%CD%\runas.vbs"
+cscript //Nologo "%CD%\runas.vbs" >nul
+del /q "%CD%\runas.vbs"
+exit
+
+:elevated
+NET FILE>nul 2>&1||exit
+echo Elevating to TrustedInstaller permissions . . . 
+echo.
+whoami /groups | find /C "TrustedInstaller" >nul
+if %ERRORLEVEL% EQU 0 goto start
+%nscexe% -U:T -P:E %0
+exit
+
+:start
+REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassId\Windows.Gaming.GameBar.PresenceServer.Internal.PresenceWriter" /v "ActivationType" /t REG_DWORD /d 0 /f
+exit

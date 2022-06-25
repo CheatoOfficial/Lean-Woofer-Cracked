@@ -1,0 +1,14 @@
+C:\Users\Cheato\Desktop\lean 3.0 src\obj\Debug\net472\LeanWoofer.csproj.AssemblyReference.cache
+C:\Users\Cheato\Desktop\lean 3.0 src\obj\Debug\net472\LeanWoofer.csproj.SuggestedBindingRedirects.cache
+C:\Users\Cheato\Desktop\lean 3.0 src\obj\Debug\net472\LeanSoftware.Properties.Resources.resources
+C:\Users\Cheato\Desktop\lean 3.0 src\obj\Debug\net472\Lean.Forms.Main.resources
+C:\Users\Cheato\Desktop\lean 3.0 src\obj\Debug\net472\LeanWoofer.csproj.GenerateResource.cache
+C:\Users\Cheato\Desktop\lean 3.0 src\obj\Debug\net472\LeanWoofer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Cheato\Desktop\lean 3.0 src\obj\Debug\net472\LeanWoofer.csproj.CoreCompileInputs.cache
+C:\Users\Cheato\Desktop\lean 3.0 src\bin\Debug\net472\LeanWoofer.exe.config
+C:\Users\Cheato\Desktop\lean 3.0 src\bin\Debug\net472\LeanWoofer.exe
+C:\Users\Cheato\Desktop\lean 3.0 src\bin\Debug\net472\LeanWoofer.pdb
+C:\Users\Cheato\Desktop\lean 3.0 src\bin\Debug\net472\Siticone.UI.dll
+C:\Users\Cheato\Desktop\lean 3.0 src\obj\Debug\net472\LeanWoofer.csproj.CopyComplete
+C:\Users\Cheato\Desktop\lean 3.0 src\obj\Debug\net472\LeanWoofer.exe
+C:\Users\Cheato\Desktop\lean 3.0 src\obj\Debug\net472\LeanWoofer.pdb
