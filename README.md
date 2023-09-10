@@ -7,3 +7,5 @@ OverDrive has released a crack, however I did some reversal myself, dumped all K
 Lucifer and OverDrive are working on a new update for Lean, I am not sure if I will crack that - I have not spoken to them so not sure if I am chill with them or not yet.
 
 Enjoy. No support will be given.
+
+Use Cheato Spoofer instead! https://chea.to
